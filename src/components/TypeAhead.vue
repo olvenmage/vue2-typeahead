@@ -240,7 +240,10 @@
         if (this.current !== -1) {
           this.onHit(this.items[this.current], this, this.current)
         }
-        this.reset()
+        
+        setTimeout(() => {
+            this.reset();
+        }, 300);
       },
 
       up () {
