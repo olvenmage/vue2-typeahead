@@ -137,7 +137,7 @@
         }
       },
 
-      render: {
+      show: {
         // 对结果进行处理
         required: false,
         type: Function,
@@ -180,8 +180,10 @@
       objectUpdate (){
         var filtered = this.objectArray.filter(entity => entity.toLowerCase().includes(this.query.toLowerCase()));
         this.data = this.limit ? filtered.slice(0, this.limit) : filtered;
-        this.items = this.render(this.limit ? this.data.slice(0, this.limit) : this.data, this)
-        
+        this.items = this.show(this.limit ? this.data.slice(0, this.limit) : this.data, this)
+        console.log('1')
+        console.log(this.items)
+
         this.current = -1;
 
         if (this.selectFirst) {
@@ -214,8 +216,9 @@
               if (this.query) {
                 let data = this.getResponse(response)
                 this.data = this.limit ? data.slice(0, this.limit) : data
-                this.items = this.render(this.limit ? data.slice(0, this.limit) : data, this)
-
+       
+                this.items = this.show(this.limit ? data.slice(0, this.limit) : data, this)
+  
                 this.current = -1
                 this.loading = false
 
