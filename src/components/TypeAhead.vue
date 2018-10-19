@@ -11,14 +11,20 @@
                @input="update($event)"/>
 
         <ul v-show="hasItems" class="dropdown-menu-list dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-            <li v-for="(item , index) in items" :class="{active:activeClass(index), 'search-item-wrapper': true}"
+            <li v-for="(item , index) in items" :class="{active:activeClass(index), 'search-item-wrapper': true, 'bg-bootstrap-gray': !data[index]}"
                 @mousedown="hit" @mousemove="setActive(index)">
-                <div class="row search-item">
-                    <div class="col-3" v-html="prepend(data[index])"></div>
-                    <div class="col-1"></div>
-                    <a class="col-7 word-break" v-html="highlighting(item, vue)"></a>
-                </div>
-
+                <template v-if="data[index]">
+                    <div class="row search-item">
+                        <div class="col-3" v-html="prepend(data[index])"></div>
+                        <div class="col-1"></div>
+                        <a class="col-7 word-break" v-html="highlighting(item, vue)"></a>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="text-center">
+                        <a v-html="highlighting(item, vue)"></a>
+                    </div>
+                </template>
             </li>
         </ul>
         <ul v-if="showSearchingFlag" v-show="!hasItems&&!isEmpty" class="dropdown-menu" role="menu"
